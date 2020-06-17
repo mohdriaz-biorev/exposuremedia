@@ -49,7 +49,7 @@ class HomeController extends Controller
         {
             $num=0;
         }
-        $home=Homes::where('block',1)->take($num)->get();
+        $home=Homes::where('block',1)->with('status')->take($num)->get();
         return $home;
     }
 

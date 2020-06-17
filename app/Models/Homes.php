@@ -22,4 +22,8 @@ class Homes extends Model
     public function floor(){
     	return $this->hasMany('App\Models\Floors','home_id')->with('homes');
     }
+
+    public function status(){
+        return $this->belongsTo('App\Models\status');
+    }
 }

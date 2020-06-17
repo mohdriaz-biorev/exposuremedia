@@ -15,6 +15,31 @@ Use DB;
 
 class HomeController extends Controller
 {
+
+    public function HomeHouseList()
+    {
+        $count=Homes::where('block',1)->count();
+        if($count>=3 and $count<6)
+        {
+            $num=3;
+        }
+        else if($count>=6 and $count<9)
+        {
+            $num=6;
+
+        }
+        else if($count>9)
+        {
+            $num=9;
+        }
+        else if($count<3)
+        {
+            $num=0;
+        }
+        $home=Homes::where('block',1)->take($num)->get();
+         return $home;
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -97,6 +122,10 @@ class HomeController extends Controller
                 {
                     $color="#47A5A6";
                 }
+                else
+                {
+                    $color="#000000";
+                }
                 $status=status::where('id',$home->status_id)->get()->first();
                 $data .=' <div class="col-md-4" >
                 <div class="card">
@@ -163,6 +192,11 @@ class HomeController extends Controller
                 {
                     $color="#47A5A6";
                 }
+                else
+                {
+                    $color="#000000";
+                }
+                
                 $status=status::where('id',$home->status_id)->get()->first();
                 $data .=' <div class="col-md-4" >
                 <div class="card">
