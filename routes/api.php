@@ -13,9 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:web')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 Route::resources([
     'page'              => 'Admin\PageController',
     'admin/home'        => 'Admin\HomeController',
@@ -121,13 +121,19 @@ Route::get('home-map-houseList','user\HomeController@HomeMapHouseList');
 Route::post('home-map-house-list-filter','user\HomeController@HomeMapHouseListFilter');
 Route::post('home-house-list-filter','user\HomeController@HomeHouseListFilter');
 Route::post('user','UserController@signup');
+Route::get('home-filter-data','user\HomeController@HomeFilterData');
 Route::post('news-letter','user\HomeController@NewsLetter');
 Route::post('contact-us','user\HomeController@ContactUs');
 Route::post('user/register','Auth\UserController@signup');
 Route::post('user/login','Auth\UserController@login'); 
-  
+Route::post('user/login/fb','Auth\UserController@loginWithFacebook'); 
+Route::get('user/login/status','Auth\UserController@loginStatus');  
+Route::get('user/logout','Auth\UserController@logout'); 
+Route::get('roles','CommonController@getRoles'); 
+
 //home detail pages
 Route::get('add-fav/{userid}/{homeid}','User\HomeController@AddFavourite');
+
 
 
 

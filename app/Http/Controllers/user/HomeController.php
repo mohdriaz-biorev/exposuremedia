@@ -59,6 +59,19 @@ class HomeController extends Controller
         return $home;
     }
 
+    public function HomeFilterData()
+    {
+        $data=[
+            'maxbedroom'=>(int)Homes::where('block',1)->max('bedroom'),
+            'maxbathroom'=>(int)Homes::where('block',1)->max('bathroom'),
+            'minarea'=>Homes::where('block',1)->min('area'),
+            'maxarea'=>Homes::where('block',1)->max('area'),
+            'minprice'=>Homes::where('block',1)->min('price'),
+            'maxprice'=>Homes::where('block',1)->max('price'),
+        ];
+        return $data;        
+    }
+
 
     public function HomeHouseListFilter(Request $request)
     {
@@ -259,21 +272,28 @@ class HomeController extends Controller
 
     public function NewsLetter(Request $request)
     {
-        if(User::where('email',$request['email'])->get()->count()==0)
+        if(NewsLetter::where('email',$request['email'])->get()->count()==0)
         {
-            // NewsLetter::create([
-            //     "email"=>$request['email'],
-            //     ]);
+            if(User::where('email',$request['email'])->get()->count()==0)
+            {
+                NewsLetter::create([
+                    "email"=>$request['email'],
+                    "name"=>"anonymous",
+                    ]);
+            }
+            else
+            {
+                $user=User::where('email',$request['email'])->get()->first();
+                NewsLetter::create([
+                    "email"=>$request['email'],
+                    "name"=>$user->name,
+                    ]);
+            }
         }
         else
         {
-            $user=User::where('email',$request['email'])->get()->first();
-            NewsLetter::create([
-                "email"=>$request['email'],
-                "name"=>$user->name,
-                ]);
+            return ['email'=>"already exist"];
         }
-       
         return "success";
     }
 

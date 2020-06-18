@@ -41,46 +41,89 @@ class UserController extends Controller
 
     public function signup(Request $request)
     {
-        $validator = Validator::make($request->all(), [ 
-            'name' => 'required', 
+        $this->validate($request, [ 
+            'username' => ['required','regex:/^[a-zA-Z\s]*$/'], 
             'email' => 'required|email', 
-            'password' => 'required', 
-            'c_password' => 'required|same:password', 
+            'password' => 'required|min:8', 
+            'confirm_password' => 'required|same:password', 
+            'type' => 'required'
         ]);
-        if ($validator->fails()) { 
-            return response()->json(['error'=>$validator->errors()], 401);            
-        }
         $emailExist = User::where('email', $request['email'])->get()->first();
         if(!$emailExist):
             $user = User::create([
                 'email'     =>  $request['email'],
-                'name'      =>  $request['name'],
+                'name'      =>  $request['username'],
                 'password' => Hash::make($request['password']),
-                'type'      =>  'user',
+                'role_id'      =>  $request['type'],
                 'status'    =>  1,
             ]);
+            Auth::login($user);
             $success['status'] = true;
-            $success['token'] =  $user->createToken('exposer_media')->accessToken; 
-            $success['name'] =  $user->name;
-            return response()->json(['data'=>$success]);
+            $success['user'] =  $user;
+            return response()->json($success);
         else:
             $fail['status'] = false;
             $fail['msg'] = "Email Already Exists.";
-            return response()->json(['data'=>$fail]);
+            return response()->json($fail);
         endif;         
 
     }
-    public function login(){ 
+    public function login(Request $request){ 
+        $this->validate($request, [  
+            'email' => 'required|email', 
+            'password' => 'required', 
+            ]);
+        
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){ 
-            $user = Auth::user(); 
+            $user = Auth::user();
+            Auth::login($user); 
             $success['status'] = true;
-            $success['token'] =  $user->createToken('MyApp')-> accessToken; 
-            return response()->json(['data' => $success]); 
+            $success['user'] =  $user; 
+            return response()->json($success); 
         } 
         else{ 
             return response()->json(['error'=>'Invalid Credentials'], 401); 
         } 
     }
-
+    public function loginStatus()
+    {
+        # code...
+        if (Auth::check()) {
+            // The user is logged in...
+            $user = Auth::user();
+            $success['status'] = true;
+            $success['user'] =  $user; 
+            return response()->json( $success);
+        }
+        else{
+            $success['status'] = false;
+            return response()->json( $success);
+        }
+    }
+    public function logout()
+    {
+        # code...
+        Auth::logout();
+        $success['status'] = true;
+        return response()->json( $success);
+    }
+    public function loginWithFacebook(Request $request)
+    {
+        # code...
+        $user = User::where('fb_id', $request->fb_id)->get()->first();
+        if(!$user){
+            $user = User::create([
+                'email'     =>  $request['email'],
+                'name'      =>  $request['username'],
+                'password' => Hash::make($request['password']),
+                'role_id'      =>  $request['type'],
+                'status'    =>  1,
+            ]);
+        }
+        Auth::login($user);
+        $success['status'] = true;
+        $success['user'] =  $user;
+        return response()->json($success);
+    }
 
 }
