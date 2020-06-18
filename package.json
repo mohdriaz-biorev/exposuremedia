@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.11"
     },
     "dependencies": {
+        "numeral": "^2.0.6",
         "vform": "^1.0.1",
         "vue2-filters": "^0.11.0",
         "vuelidate": "^0.7.5"

@@ -5,7 +5,7 @@
             <div class="flat-item"><div class="flat-item-image">
                 <span class="for-sale">{{flat.status.status}}</span> 
                     <a href="#">
-                        <img class="featurimg" :src="'/uploads/homes/'+flat.featured_image" alt="" width="368px" height="235px" />
+                        <img class="featurimg img-dim" :src="'/uploads/homes/'+flat.featured_image" alt="" />
                     </a> 
                     <div class="flat-link"><a href="javascript:;" @click="flatDetails(flat.id)">More Details</a></div>
                         <ul class="flat-desc">
@@ -17,7 +17,7 @@
                     <div class="flat-item-info">
                         <div class="flat-title-price">
                             <h5><a href="#">{{flat.title}}</a></h5>
-                            <span class="price">${{flat.price}}</span>
+                            <span class="price">${{flat.price | freeNumber}}</span>
                         </div>
                             <p><img src="vue/images/icons/location.png" alt="">{{flat.description}}</p>
                     </div>
@@ -50,3 +50,9 @@
         }
     }
 </script>
+<style>
+.img-dim { 
+        width:368px; 
+        height:235px;
+    }
+</style>
