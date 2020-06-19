@@ -11,7 +11,7 @@
                       <h2 class="h1">SEARCH MLS</h2>
                   </div>
                   <div class="find-homes">
-                     <form sform @submit.prevent="searchMls">
+                     <form sform @submit.prevent="searchMls" >
                       <div class="row">
                           <div class="col-md-12 col-sm-12 col-xs-12">
                               <div class="find-home-item" >
@@ -32,8 +32,8 @@
                   </div>
               </div>
           </div>
-          <!-- SEARCH MLS END -->
-          <!-- SEARCH DEVELOPMENTS BEGIN -->
+          <!--SEARCH MLS END -->
+          <!--SEARCH DEVELOPMENTS BEGIN -->
           <div class="col-md-6">
             <div class="find-home-box box-right1">
               <div class="section-title text-white">
@@ -126,178 +126,131 @@
                         class="search-properties clearfix show-status-tab style-default-small color-light"
                       >
                         <div class="form-search-wrap">
-                          <div class="form-search-inner">
-                            <div class="search-content">
-                              <div data-href="#" class="search-properties-form">
-                                <div class="search-status-tab">
-                                  <input
-                                    class="search-field"
-                                    type="hidden"
-                                    name="status"
-                                    value="for-rent"
-                                    data-default-value
-                                  />
-                                  <button
-                                    type="button"
-                                    data-value="for-rent"
-                                    class="btn-status-filter active"
-                                  >For Rent</button>
-                                  <button
-                                    type="button"
-                                    data-value="for-sale"
-                                    class="btn-status-filter"
-                                  >For Sale</button>
-                                </div>
-                                <div class="row">
-                                  <div class="col-md-4 col-sm-6 col-xs-12 form-group">
-                                    <select
-                                      name="type"
-                                      title="Property Types"
-                                      class="search-field form-control"
-                                      data-default-value
-                                    >
-                                      <option value="apartment">Apartment</option>
-                                      <option value="bar">Bar</option>
-                                      <option value="cafe">Cafe</option>
-                                      <option value="car-wash">Car Wash</option>
-                                      <option value="casino">Casino</option>
-                                      <option value="farm">Farm</option>
-                                      <option value="hotel">Hotel</option>
-                                      <option value="house">House</option>
-                                      <option value="land">Land</option>
-                                      <option value="lodging">Lodging</option>
-                                      <option value="restaurant">Restaurant</option>
-                                      <option value="spa">Spa</option>
-                                      <option value="store">Store</option>
-                                      <option value="villa">Villa</option>
-                                      <option value selected>All Types</option>
-                                    </select>
-                                  </div>
-                                  <div class="col-md-4 col-sm-6 col-xs-12 form-group">
+                            <div class="form-search-inner">
+                              <div class="search-content">
+                                <form bhform @submit.prevent="propertySearch" > 
+                                <div data-href="#" class="search-properties-form">
+                                  <div class="search-status-tab">
                                     <input
-                                      type="text"
-                                      class="form-control search-field"
+                                      class="search-field"
+                                      type="hidden"
+                                      name="status"
+                                      value="for-rent"
                                       data-default-value
-                                      value
-                                      name="title"
-                                      placeholder="Title"
                                     />
-                                  </div>
-                                  <div class="col-md-4 col-sm-6 col-xs-12 form-group">
-                                    <input
-                                      type="text"
-                                      class="ere-location form-control search-field"
-                                      data-default-value
-                                      value
-                                      name="address"
-                                      placeholder="Address"
-                                    />
-                                  </div>
-                                  <div class="col-md-4 col-sm-6 col-xs-12 form-group">
-                                    <select
-                                      name="bedrooms"
-                                      title="Property Bedrooms"
-                                      class="search-field form-control"
-                                      data-default-value
-                                    >
-                                      <option value>Any Bedrooms</option>
-                                      <option value="1">1</option>
-                                    </select>
-                                  </div>
-                                  <div class="col-md-4 col-sm-6 col-xs-12 form-group">
-                                    <select
-                                      name="bathrooms"
-                                      title="Property Bathrooms"
-                                      class="search-field form-control"
-                                      data-default-value
-                                    >
-                                      <option value>Any Bathrooms</option>
-                                      <option value="1">1</option>
-                                    </select>
-                                  </div>
-                                  <div class="col-md-2 col-sm-3 col-xs-12 form-group">
-                                    <select
-                                      name="min-price"
-                                      title="Min Price"
-                                      class="search-field form-control"
-                                      data-default-value
-                                    >
-                                      <option value>Min Price</option>
-                                      <option value="0">$0</option>
-                                      <option value="100">$100</option>
-                                    </select>
-                                  </div>
-                                  <div class="col-md-2 col-sm-3 col-xs-12 form-group">
-                                    <select
-                                      name="max-price"
-                                      title="Max Price"
-                                      class="search-field form-control"
-                                      data-default-value
-                                    >
-                                      <option value>Max Price</option>
-                                      <option value="200">$200</option>
-                                    </select>
-                                  </div>
-                                  <div class="col-md-4 col-sm-6 col-xs-12 form-group">
-                                    <div class="find-home-item">
-                                      <!-- shop-filter -->
-                                      <div class="shop-filter">
-                                        <div class="price_filter">
-                                          <div class="price_slider_amount">
-                                            <input type="submit" value="Price range :" />
-                                            <input
-                                              type="text"
-                                              id="amount"
-                                              name="price"
-                                              placeholder="Add Your Price"
-                                            />
-                                          </div>
-                                          <div id="slider-range1"></div>
-                                        </div>
-                                      </div>
+                                    <button type="button"
+                                      data-value="for-rent"
+                                      class="btn-status-filter"
+                                      :class="[(bhform.fortype == 'rent')?'active':'']"
+                                      @click="bhform.fortype = 'rent'"
+                                    >For Rent</button>
+                                    <button
+                                      type="button"
+                                      data-value="for-sale"
+                                      class="btn-status-filter"
+                                      :class="[(bhform.fortype == 'sale')?'active':'']"
+                                      @click="bhform.fortype = 'sale'"
+                                    >For Sale</button>                                    
+                                  </div> 
+                                                                  
+                                  <div class="row">
+                                    <div class="col-md-4 col-sm-6 col-xs-12 form-group">
+                                      <select
+                                        name="type"
+                                        title="Property Types"
+                                        class="search-field form-control"
+                                        data-default-value
+                                         v-model="bhform.type"
+                                        :class="{ 'is-invalid': bhform.errors.has('type') }"
+                                      >
+                                        <option value>Any Type</option>
+                                        <option  value="single" >Single House</option>
+                                        <option  value="mid" >Mid Town</option>
+                                        <option  value="town" >Town Condo</option>
+                                      </select>
                                     </div>
-                                  </div>
-                                  <div class="col-md-4 col-sm-6 col-xs-12 form-group">
-                                    <div class="find-home-item">
-                                      <!-- shop-filter -->
-                                      <div class="shop-filter">
-                                        <div class="price_filter">
-                                          <div class="price_slider_amount">
-                                            <input type="submit" value="Land Area :" />
-                                            <input
-                                              type="text"
-                                              id="sqft"
-                                              name="area"
-                                              placeholder="Add Your Area"
-                                            />
-                                          </div>
-                                          <div id="slider-range2"></div>
-                                        </div>
-                                      </div>
+                                    <div class="col-md-4 col-sm-6 col-xs-12 form-group">
+                                      <input
+                                        type="text"
+                                        class="form-control search-field"
+                                        data-default-value
+                                        name="title"
+                                        placeholder="Title"
+                                        v-model="bhform.title"
+                                        :class="{ 'is-invalid': bhform.errors.has('title') }"
+                                      />
                                     </div>
-                                  </div>
-                                  <div class="col-md-4 col-sm-6 col-xs-12 form-group">
-                                    <input
-                                      type="text"
-                                      class="ere-property-identity form-control search-field"
-                                      data-default-value
-                                      value
-                                      name="property_identity"
-                                      placeholder="Property ID"
-                                    />
-                                  </div>
-                                  <div
-                                    class="col-md-12 col-sm-6 col-xs-12 form-group submit-search-form pull-right"
-                                  >
-                                    <button type="button" class="ere-advanced-search-btn">
-                                      <i class="fa fa-search"></i> Search
-                                    </button>
-                                  </div>
+                                    <div class="col-md-4 col-sm-6 col-xs-12 form-group">
+                                      <input
+                                        type="text"
+                                        class="ere-location form-control search-field"
+                                        data-default-value
+                                        name="address"
+                                        placeholder="Address"
+                                        v-model="bhform.address"
+                                        :class="{ 'is-invalid': bhform.errors.has('address') }"
+                                      />
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-xs-12 form-group">
+                                      <select
+                                        name="bedroom"
+                                        title="Property Bedrooms"
+                                        class="search-field form-control"
+                                        data-default-value
+                                        v-model="bhform.bedroom"
+                                        :class="{ 'is-invalid': bhform.errors.has('bedroom') }"
+                                      >
+                                        <option value>Any Bedrooms</option>
+                                        <option  v-for="index in home.maxbedroom" :key="index" :value="index">{{index}}</option>
+                                      </select>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-xs-12 form-group">
+                                      <select
+                                        name="bathroom"
+                                        title="Property Bathrooms"
+                                        class="search-field form-control"
+                                        data-default-value
+                                        v-model="bhform.bathroom"
+                                        :class="{ 'is-invalid': bhform.errors.has('bthroom') }"
+                                      >
+                                        <option value>Any Bathroom</option>
+                                        <option  v-for="index in home.maxbathroom" :key="index" :value="index">{{index}}</option>
+                                      </select>
+                                    </div>
+                                      <div class="col-md-4 col-sm-6 col-xs-12 form-group">
+                                      <input
+                                        type="text"
+                                        class="ere-property-identity form-control search-field"
+                                        data-default-value
+                                        value
+                                        name="propid"
+                                        placeholder="Property ID"
+                                        v-model="bhform.propertyid"
+                                      />
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-xs-12 form-group">
+                                      <label>Price range: ${{bhform.price_range[0]}} - {{bhform.price_range[1]}}</label>
+                                      <vue-range-slider  :enableCross="false" :contained="true" :lazy="false" :bg-style="bgStyle" :min="home.minprice" tooltip-dir="bottom" tooltip="hover" :tooltip-style="tooltipStyle" :max="home.maxprice" :process-style="processStyle" v-model="bhform.price_range"></vue-range-slider> 
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-xs-12 form-group">
+                                      <label>Land area: sqf {{bhform.area_range[0]}} - sqf {{bhform.area_range[1]}}</label>
+                                      <vue-range-slider  :enableCross="false" :contained="true" :lazy="false" :bg-style="bgStyle" :min="home.minarea" tooltip-dir="bottom" tooltip="hover" :tooltip-style="tooltipStyle" :max="home.maxarea" :process-style="processStyle" v-model="bhform.area_range"></vue-range-slider> 
+                                    </div>
+                                  
+                                    <div
+                                      class="col-md-12 col-sm-6 col-xs-12 form-group submit-search-form pull-right"
+                                    >
+                                      <button type="button" class="ere-advanced-search-btn" @click="propertySearch">
+                                        <i class="fa fa-search"></i> Search
+                                      </button>
+                                    </div>
+                                  </div>                                
                                 </div>
+                               </form>
                               </div>
                             </div>
                           </div>
-                        </div>
+
                       </div>
                     </div>
                   </div>
@@ -585,7 +538,34 @@ export default {
         }),
         form: new Form({
           search: '',
-        })
+        }),
+        home:{},
+        min_area:0,
+        max_area:0,
+        min_price:0,
+        max_price:0,
+        bhform: new Form({
+          address: "",
+          bedroom: "",
+          bathroom: "",
+          type: "",
+          title: "",
+          price_range:[],
+          area_range:[],
+          fortype:"rent",
+          propertyid: "",          
+        }),
+        bgStyle: {
+            backgroundColor: '#ffffff',
+            boxShadow: 'inset 0.5px 0.5px 3px 1px rgba(0,0,0,.36)'
+        },
+        processStyle: {
+            backgroundColor: '#FF7F00'
+        },
+        tooltipStyle: {
+            backgroundColor: '#666',
+            borderColor: '#666'
+        }
       }
     },
 
@@ -596,18 +576,38 @@ export default {
             sdev='all';
           }
          window.location = 'search?type=dev&key='+sdev;
-         //console.log('sde=='+sdev);
       },
-
       searchMls(){
         let mlsvar = this.sform.searchmls;
         if(mlsvar == '' ){
           mlsvar = 'all';
         }
         window.location = 'search?type=mls&key='+mlsvar;
-      }
-    },
-    
+      },
+      loadHome()
+      {
+        axios.get("api/home-filter-data").then(({data})=>(this.home = data,          
+          this.bhform.price_range = [parseInt(data.minprice), parseInt(data.maxprice)],
+          this.bhform.area_range = [parseInt(data.minarea), parseInt(data.maxarea)]
+        )).catch(function(error){console.log(error); });
+      
+      },    
+      propertySearch()
+      {
+        window.location= 'property-details?fortype='+this.bhform.fortype+
+        '&type='+this.bhform.type+
+        '&title='+this.bhform.title+
+        '&address='+this.bhform.address+
+        '&type='+this.bhform.type+
+        '&minprice='+this.bhform.price_range[0]+
+        '&maxprice='+this.bhform.price_range[1]+
+        '&minarea='+this.bhform.area_range[0]+
+        '&maxarea='+this.bhform.area_range[1]+
+        '&bed='+this.bhform.bedroom+
+        '&bath='+this.bhform.bathroom+
+        '&propid='+this.bhform.propertyid    
+      }  
+    },    
   mounted() {
     console.log("Component mounted.");
   }
